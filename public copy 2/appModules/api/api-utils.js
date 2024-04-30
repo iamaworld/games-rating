@@ -1,6 +1,6 @@
 const { url } = require("inspector");
 
-async function getData(url) {
+async function gotData(url) {
   try {
     const response = await fetch(url);
     const data = await response.json();
@@ -16,6 +16,6 @@ function getRandomGame(array) {
 }
 
 module.exports = {
-  getData,
+  gotData,
   getRandomGame,
 };

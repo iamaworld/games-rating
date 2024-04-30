@@ -3,10 +3,6 @@ const { config } = require("process");
 const { getRandomGame } = require("../appModules/api");
 
 async function gameRouteController(res) {
-  fs.readFile("./dataset/rating.json", (err, ratingFile) => {
-    if (err) {
-    }
-  });
   try {
     const ratingFile = await fs.readFile(config.PATH_TO_RATING_FILE);
     const data = JSON.parse(ratingFile);
@@ -14,9 +10,10 @@ async function gameRouteController(res) {
     res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify(game));
   } catch (error) {
+    console.log(error);
     res.statusCode = 500;
     res.end("Internal Server Error");
   }
 }
 
-module.exports = gameRouteController;
+module.exports.gameRouteController = gameRouteController;

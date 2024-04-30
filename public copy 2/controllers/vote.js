@@ -1,6 +1,7 @@
 const fs = require("fs").promises;
-const parseBody = require("../appModules/http-utils/parse-body");
+const { parseBody } = require("../appModules/http-utils/parse-body");
 const { config, createRating, updateRating } = require("../appModules/rating");
+const { WEIGHT } = require("../appModules/rating/config.js");
 
 async function voteRouteController(req, res) {
   if (req.method !== "POST") {
@@ -21,10 +22,11 @@ async function voteRouteController(req, res) {
       res.setHeader("Content-Type", "application/json");
       res.end(JSON.stringify(newRating.sort((a, b) => b.rating - a.rating)));
     } catch (error) {
+      console.log(error);
       res.statusCode = 500;
       res.end("Internal Server Error");
     }
   }
 }
 
-module.exports = voteRouteController;
+module.exports.voteRouteController = voteRouteController;
